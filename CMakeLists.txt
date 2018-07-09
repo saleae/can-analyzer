@@ -21,9 +21,9 @@ add_library(can_analyzer SHARED ${SOURCES})
 target_link_libraries(can_analyzer PRIVATE Saleae::AnalyzerSDK)
 
 if(MSVC)
-    install(TARGETS can_analyzer RUNTIME DESTINATION ".")
+    install(TARGETS can_analyzer RUNTIME DESTINATION "Analyzers")
 else()
-    install(TARGETS can_analyzer LIBRARY DESTINATION ".")
+    install(TARGETS can_analyzer LIBRARY DESTINATION "Analyzers")
 endif()
 
 set_post_build_destination(can_analyzer)
