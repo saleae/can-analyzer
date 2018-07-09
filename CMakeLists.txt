@@ -25,3 +25,5 @@ if(MSVC)
 else()
     install(TARGETS can_analyzer LIBRARY DESTINATION ".")
 endif()
+
+set_post_build_destination(can_analyzer)
