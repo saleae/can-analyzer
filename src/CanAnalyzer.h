@@ -25,7 +25,7 @@ public:
 
 
 class SerialAnalyzerSettings;
-class ANALYZER_EXPORT CanAnalyzer : public Analyzer2
+class CanAnalyzer : public Analyzer2
 {
 public:
 	CanAnalyzer();

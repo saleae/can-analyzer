@@ -17,13 +17,4 @@ src/CanSimulationDataGenerator.cpp
 src/CanSimulationDataGenerator.h
 )
 
-add_library(can_analyzer SHARED ${SOURCES})
-target_link_libraries(can_analyzer PRIVATE Saleae::AnalyzerSDK)
-
-if(MSVC)
-    install(TARGETS can_analyzer RUNTIME DESTINATION "Analyzers")
-else()
-    install(TARGETS can_analyzer LIBRARY DESTINATION "Analyzers")
-endif()
-
-set_post_build_destination(can_analyzer)
+add_analyzer_plugin(can_analyzer SOURCES ${SOURCES})
