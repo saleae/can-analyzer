@@ -20,7 +20,8 @@ CanAnalyzerSettings::CanAnalyzerSettings()
 	mBitRateInterface->SetInteger( mBitRate );
 
 	mCanChannelInvertedInterface.reset( new AnalyzerSettingInterfaceBool( ) );
-	mCanChannelInvertedInterface->SetTitleAndTooltip( "Inverted (CAN High)", "Use this option when recording CAN High directly" );
+	mCanChannelInvertedInterface->SetTitleAndTooltip( "", "Use this option when recording CAN High directly" );
+	mCanChannelInvertedInterface->SetCheckBoxText( "Inverted (CAN High)" );
 	mCanChannelInvertedInterface->SetValue( mInverted );
 
 
