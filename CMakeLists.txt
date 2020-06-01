@@ -1,6 +1,8 @@
 cmake_minimum_required (VERSION 3.11)
 project(can_analyzer)
 
+add_definitions( -DLOGIC2 )
+
 # custom CMake Modules are located in the cmake directory.
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
