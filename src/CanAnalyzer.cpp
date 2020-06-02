@@ -321,8 +321,9 @@ void CanAnalyzer::AnalizeRawFrame()
 
         frame.mData1 = mIdentifier;
         frame_v2_identifier.AddInteger( "Identifier", mIdentifier );
+        frame_v2_identifier.AddBoolean( "Extended", true );
         mResults->AddFrame( frame );
-        mResults->AddFrameV2( frame_v2_identifier, "IdentifierFieldEx", frame.mStartingSampleInclusive, frame.mEndingSampleInclusive );
+        mResults->AddFrameV2( frame_v2_identifier, "IdentifierField", frame.mStartingSampleInclusive, frame.mEndingSampleInclusive );
     }
 
 
