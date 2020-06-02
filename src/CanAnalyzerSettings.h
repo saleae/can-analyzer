@@ -9,27 +9,26 @@
 
 class CanAnalyzerSettings : public AnalyzerSettings
 {
-public:
-	CanAnalyzerSettings();
-	virtual ~CanAnalyzerSettings();
+  public:
+    CanAnalyzerSettings();
+    virtual ~CanAnalyzerSettings();
 
-	virtual bool SetSettingsFromInterfaces();
-	virtual void LoadSettings( const char* settings );
-	virtual const char* SaveSettings();
+    virtual bool SetSettingsFromInterfaces();
+    virtual void LoadSettings( const char* settings );
+    virtual const char* SaveSettings();
 
-	void UpdateInterfacesFromSettings();
+    void UpdateInterfacesFromSettings();
 
-	Channel mCanChannel;
-	U32 mBitRate;
-	bool mInverted;
+    Channel mCanChannel;
+    U32 mBitRate;
+    bool mInverted;
 
-	BitState Recessive();
-	BitState Dominant();
+    BitState Recessive();
+    BitState Dominant();
 
-protected:
-	std::auto_ptr< AnalyzerSettingInterfaceChannel > mCanChannelInterface;
-	std::auto_ptr< AnalyzerSettingInterfaceInteger > mBitRateInterface;
-	std::auto_ptr< AnalyzerSettingInterfaceBool > mCanChannelInvertedInterface;
-
+  protected:
+    std::auto_ptr<AnalyzerSettingInterfaceChannel> mCanChannelInterface;
+    std::auto_ptr<AnalyzerSettingInterfaceInteger> mBitRateInterface;
+    std::auto_ptr<AnalyzerSettingInterfaceBool> mCanChannelInvertedInterface;
 };
-#endif //CAN_ANALYZER_SETTINGS
+#endif // CAN_ANALYZER_SETTINGS
