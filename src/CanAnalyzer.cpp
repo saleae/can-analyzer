@@ -41,11 +41,13 @@ void CanAnalyzer::WorkerThread()
 
         if( mCanError == true )
         {
+            FrameV2 frame_v2_error;
             Frame frame;
             frame.mStartingSampleInclusive = mErrorStartingSample;
             frame.mEndingSampleInclusive = mErrorEndingSample;
             frame.mType = CanError;
             mResults->AddFrame( frame );
+            mResults->AddFrameV2( frame_v2_error, "CanError", frame.mStartingSampleInclusive, frame.mEndingSampleInclusive );
             mResults->CancelPacketAndStartNewPacket();
         }
 
@@ -227,6 +229,8 @@ void CanAnalyzer::AnalizeRawFrame()
     // ok, if bit1 is dominant, then this is 11-bit.
 
     Frame frame;
+    FrameV2 frame_v2_identifier;
+
 
     if( bit1 == mSettings->Dominant() )
     {
@@ -247,6 +251,7 @@ void CanAnalyzer::AnalizeRawFrame()
         {
             mRemoteFrame = true;
             frame.mFlags = REMOTE_FRAME;
+            frame_v2_identifier.AddBoolean( "RemoteFrame", true );
         }
         else
         {
@@ -255,7 +260,9 @@ void CanAnalyzer::AnalizeRawFrame()
         }
 
         frame.mData1 = mIdentifier;
+        frame_v2_identifier.AddInteger( "Identifier", mIdentifier );
         mResults->AddFrame( frame );
+        mResults->AddFrameV2( frame_v2_identifier, "IdentifierField", frame.mStartingSampleInclusive, frame.mEndingSampleInclusive );
     }
     else
     {
@@ -304,6 +311,7 @@ void CanAnalyzer::AnalizeRawFrame()
         {
             mRemoteFrame = true;
             frame.mFlags = REMOTE_FRAME;
+            frame_v2_identifier.AddBoolean( "RemoteFrame", true );
         }
         else
         {
@@ -312,7 +320,9 @@ void CanAnalyzer::AnalizeRawFrame()
         }
 
         frame.mData1 = mIdentifier;
+        frame_v2_identifier.AddInteger( "Identifier", mIdentifier );
         mResults->AddFrame( frame );
+        mResults->AddFrameV2( frame_v2_identifier, "IdentifierFieldEx", frame.mStartingSampleInclusive, frame.mEndingSampleInclusive );
     }
 
 
@@ -337,12 +347,15 @@ void CanAnalyzer::AnalizeRawFrame()
 
         mask >>= 1;
     }
+    FrameV2 frame_v2_control;
 
     frame.mStartingSampleInclusive = first_sample;
     frame.mEndingSampleInclusive = last_sample;
     frame.mType = ControlField;
     frame.mData1 = mNumDataBytes;
     mResults->AddFrame( frame );
+    frame_v2_control.AddInteger( "NumDataBytes", mNumDataBytes );
+    mResults->AddFrameV2( frame_v2_control, "ControlField", frame.mStartingSampleInclusive, frame.mEndingSampleInclusive );
 
     U32 num_bytes = mNumDataBytes;
     if( num_bytes > 8 )
@@ -374,12 +387,14 @@ void CanAnalyzer::AnalizeRawFrame()
 
             mDataField.push_back( bit );
         }
-
+        FrameV2 frame_v2_data;
         frame.mStartingSampleInclusive = first_sample;
         frame.mEndingSampleInclusive = last_sample;
         frame.mType = DataField;
         frame.mData1 = data;
         mResults->AddFrame( frame );
+        frame_v2_data.AddByte( "data", data );
+        mResults->AddFrameV2( frame_v2_data, "DataField", frame.mStartingSampleInclusive, frame.mEndingSampleInclusive );
     }
 
     mCrcValue = 0;
@@ -401,12 +416,14 @@ void CanAnalyzer::AnalizeRawFrame()
         if( bit == mSettings->Recessive() )
             mCrcValue |= 1;
     }
-
+    FrameV2 frame_v2_crc;
     frame.mStartingSampleInclusive = first_sample;
     frame.mEndingSampleInclusive = last_sample;
     frame.mType = CrcField;
     frame.mData1 = mCrcValue;
     mResults->AddFrame( frame );
+    frame_v2_crc.AddInteger( "CrcValue", mCrcValue );
+    mResults->AddFrameV2( frame_v2_crc, "CrcField", frame.mStartingSampleInclusive, frame.mEndingSampleInclusive );
 
     done = UnstuffRawFrameBit( mCrcDelimiter, first_sample );
 
@@ -429,11 +446,14 @@ void CanAnalyzer::AnalizeRawFrame()
 
     mAckField.push_back( ack );
 
+    FrameV2 frame_v2_ack;
     frame.mStartingSampleInclusive = first_sample;
     frame.mEndingSampleInclusive = last_sample;
     frame.mType = AckField;
     frame.mData1 = mAck;
     mResults->AddFrame( frame );
+    frame_v2_ack.AddBoolean( "Ack", mAck );
+    mResults->AddFrameV2( frame_v2_ack, "AckField", frame.mStartingSampleInclusive, frame.mEndingSampleInclusive );
     mResults->CommitPacketAndStartNewPacket();
 }
 
