@@ -47,7 +47,7 @@ void CanAnalyzer::WorkerThread()
             frame.mEndingSampleInclusive = mErrorEndingSample;
             frame.mType = CanError;
             mResults->AddFrame( frame );
-            mResults->AddFrameV2( frame_v2_error, "CanError", frame.mStartingSampleInclusive, frame.mEndingSampleInclusive );
+            mResults->AddFrameV2( frame_v2_error, "can_error", frame.mStartingSampleInclusive, frame.mEndingSampleInclusive );
             mResults->CancelPacketAndStartNewPacket();
         }
 
@@ -251,7 +251,7 @@ void CanAnalyzer::AnalizeRawFrame()
         {
             mRemoteFrame = true;
             frame.mFlags = REMOTE_FRAME;
-            frame_v2_identifier.AddBoolean( "RemoteFrame", true );
+            frame_v2_identifier.AddBoolean( "remote_frame", true );
         }
         else
         {
@@ -260,9 +260,9 @@ void CanAnalyzer::AnalizeRawFrame()
         }
 
         frame.mData1 = mIdentifier;
-        frame_v2_identifier.AddInteger( "Identifier", mIdentifier );
+        frame_v2_identifier.AddInteger( "identifier", mIdentifier );
         mResults->AddFrame( frame );
-        mResults->AddFrameV2( frame_v2_identifier, "IdentifierField", frame.mStartingSampleInclusive, frame.mEndingSampleInclusive );
+        mResults->AddFrameV2( frame_v2_identifier, "identifier_field", frame.mStartingSampleInclusive, frame.mEndingSampleInclusive );
     }
     else
     {
@@ -320,10 +320,10 @@ void CanAnalyzer::AnalizeRawFrame()
         }
 
         frame.mData1 = mIdentifier;
-        frame_v2_identifier.AddInteger( "Identifier", mIdentifier );
-        frame_v2_identifier.AddBoolean( "Extended", true );
+        frame_v2_identifier.AddInteger( "identifier", mIdentifier );
+        frame_v2_identifier.AddBoolean( "extended", true );
         mResults->AddFrame( frame );
-        mResults->AddFrameV2( frame_v2_identifier, "IdentifierField", frame.mStartingSampleInclusive, frame.mEndingSampleInclusive );
+        mResults->AddFrameV2( frame_v2_identifier, "identifier_field", frame.mStartingSampleInclusive, frame.mEndingSampleInclusive );
     }
 
 
@@ -355,8 +355,8 @@ void CanAnalyzer::AnalizeRawFrame()
     frame.mType = ControlField;
     frame.mData1 = mNumDataBytes;
     mResults->AddFrame( frame );
-    frame_v2_control.AddInteger( "NumDataBytes", mNumDataBytes );
-    mResults->AddFrameV2( frame_v2_control, "ControlField", frame.mStartingSampleInclusive, frame.mEndingSampleInclusive );
+    frame_v2_control.AddInteger( "num_data_bytes", mNumDataBytes );
+    mResults->AddFrameV2( frame_v2_control, "control_field", frame.mStartingSampleInclusive, frame.mEndingSampleInclusive );
 
     U32 num_bytes = mNumDataBytes;
     if( num_bytes > 8 )
@@ -395,7 +395,7 @@ void CanAnalyzer::AnalizeRawFrame()
         frame.mData1 = data;
         mResults->AddFrame( frame );
         frame_v2_data.AddByte( "data", data );
-        mResults->AddFrameV2( frame_v2_data, "DataField", frame.mStartingSampleInclusive, frame.mEndingSampleInclusive );
+        mResults->AddFrameV2( frame_v2_data, "data_field", frame.mStartingSampleInclusive, frame.mEndingSampleInclusive );
     }
 
     mCrcValue = 0;
@@ -423,8 +423,8 @@ void CanAnalyzer::AnalizeRawFrame()
     frame.mType = CrcField;
     frame.mData1 = mCrcValue;
     mResults->AddFrame( frame );
-    frame_v2_crc.AddInteger( "CrcValue", mCrcValue );
-    mResults->AddFrameV2( frame_v2_crc, "CrcField", frame.mStartingSampleInclusive, frame.mEndingSampleInclusive );
+    frame_v2_crc.AddInteger( "crc", mCrcValue );
+    mResults->AddFrameV2( frame_v2_crc, "crc_field", frame.mStartingSampleInclusive, frame.mEndingSampleInclusive );
 
     done = UnstuffRawFrameBit( mCrcDelimiter, first_sample );
 
@@ -453,8 +453,8 @@ void CanAnalyzer::AnalizeRawFrame()
     frame.mType = AckField;
     frame.mData1 = mAck;
     mResults->AddFrame( frame );
-    frame_v2_ack.AddBoolean( "Ack", mAck );
-    mResults->AddFrameV2( frame_v2_ack, "AckField", frame.mStartingSampleInclusive, frame.mEndingSampleInclusive );
+    frame_v2_ack.AddBoolean( "ack", mAck );
+    mResults->AddFrameV2( frame_v2_ack, "ack_field", frame.mStartingSampleInclusive, frame.mEndingSampleInclusive );
     mResults->CommitPacketAndStartNewPacket();
 }
 
