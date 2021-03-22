@@ -1,4 +1,5 @@
 #include "CanAnalyzerSettings.h"
+#include "CanAnalyzerResults.h"
 
 #include <AnalyzerHelpers.h>
 #include <sstream>
@@ -30,6 +31,9 @@ CanAnalyzerSettings::CanAnalyzerSettings() : mCanChannel( UNDEFINED_CHANNEL ), m
     AddExportOption( 0, "Export as text/csv file" );
     AddExportExtension( 0, "text", "txt" );
     AddExportExtension( 0, "csv", "csv" );
+
+    AddExportOption( CanAnalyzerResults::TRC, "Export as PEAK TRC format" );
+    AddExportExtension( CanAnalyzerResults::TRC, "TRC", "trc" );
 
     ClearChannels();
     AddChannel( mCanChannel, "CAN", false );
