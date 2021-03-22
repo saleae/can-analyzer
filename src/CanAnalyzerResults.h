@@ -15,6 +15,11 @@ class CanAnalyzerSettings;
 class CanAnalyzerResults : public AnalyzerResults
 {
 public:
+	enum ExportType {
+		CSV,
+		TRC
+	};
+
 	CanAnalyzerResults( CanAnalyzer* analyzer, CanAnalyzerSettings* settings );
 	virtual ~CanAnalyzerResults();
 
@@ -30,6 +35,11 @@ protected: //functions
 protected:  //vars
 	CanAnalyzerSettings* mSettings;
 	CanAnalyzer* mAnalyzer;
+
+private:
+	void GenerateCsvExportFile( const char* file, DisplayBase display_base);
+	void GenerateTrcExportFile( const char* file);
+	static std::string trcEndl;
 };
 
 #endif //CAN_ANALYZER_RESULTS

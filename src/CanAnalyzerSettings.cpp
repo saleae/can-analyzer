@@ -4,6 +4,8 @@
 #include <sstream>
 #include <cstring>
 
+#include "CanAnalyzerResults.h"
+
 CanAnalyzerSettings::CanAnalyzerSettings()
 :	mCanChannel ( UNDEFINED_CHANNEL ),
 	mBitRate ( 1000000 ),
@@ -30,9 +32,12 @@ CanAnalyzerSettings::CanAnalyzerSettings()
 	AddInterface( mCanChannelInvertedInterface.get() );
 
 	//AddExportOption( 0, "Export as text/csv file", "text (*.txt);;csv (*.csv)" );
-	AddExportOption( 0, "Export as text/csv file" );
-	AddExportExtension( 0, "text", "txt" );
-	AddExportExtension( 0, "csv", "csv" );
+	AddExportOption( CanAnalyzerResults::CSV, "Export as text/csv file" );
+	AddExportExtension( CanAnalyzerResults::CSV, "text", "txt" );
+	AddExportExtension( CanAnalyzerResults::CSV, "csv", "csv" );
+
+	AddExportOption( CanAnalyzerResults::TRC, "Export as PEAK TRC format" );
+	AddExportExtension( CanAnalyzerResults::TRC, "TRC", "trc" );
 
 	ClearChannels();
 	AddChannel( mCanChannel, "CAN", false );
