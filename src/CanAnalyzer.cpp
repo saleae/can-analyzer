@@ -7,6 +7,7 @@
 CanAnalyzer::CanAnalyzer() : Analyzer2(), mSettings( new CanAnalyzerSettings() ), mSimulationInitilized( false )
 {
     SetAnalyzerSettings( mSettings.get() );
+    UseFrameV2();
 }
 
 CanAnalyzer::~CanAnalyzer()
