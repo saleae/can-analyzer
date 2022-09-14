@@ -1,0 +1,20 @@
+{
+  "configurations": [
+    {
+      "name": "Mac",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "${vcpkgRoot}/x64-osx/include",
+        "${vcpkgRoot}/x64-osx-release/include"
+      ],
+      "defines": [],
+      "macFrameworkPath": [],
+      "compilerPath": "/usr/local/bin/gcc-9",
+      "cStandard": "c11",
+      "cppStandard": "gnu++17",
+      "intelliSenseMode": "clang-x64",
+      "compileCommands": "build/compile_commands.json"
+    }
+  ],
+  "version": 4
+}
