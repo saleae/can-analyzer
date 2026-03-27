@@ -24,6 +24,10 @@ class CanAnalyzerSettings;
 class CanAnalyzerResults : public AnalyzerResults
 {
   public:
+    enum ExportType {
+      CSV,
+      TRC
+    };
     CanAnalyzerResults( CanAnalyzer* analyzer, CanAnalyzerSettings* settings );
     virtual ~CanAnalyzerResults();
 
@@ -34,10 +38,13 @@ class CanAnalyzerResults : public AnalyzerResults
     virtual void GeneratePacketTabularText( U64 packet_id, DisplayBase display_base );
     virtual void GenerateTransactionTabularText( U64 transaction_id, DisplayBase display_base );
 
-  protected: // functions
-  protected: // vars
+  protected:
     CanAnalyzerSettings* mSettings;
     CanAnalyzer* mAnalyzer;
+
+    void GenerateCsvExportFile( const char* file, DisplayBase display_base);
+    void GenerateTrcExportFile( const char* file);
+    static std::string trcEndl;
 };
 
 #endif // CAN_ANALYZER_RESULTS
